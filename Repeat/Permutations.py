@@ -3,11 +3,11 @@
 
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
+        
+        return self.findPermutations(nums,[],[])
 
-        return self.checkPermutation(nums,[],[])
 
-    def checkPermutation(self,nums,result,path):
-
+    def findPermutations(self,nums,result,path):
         if len(path) == len(nums):
             result.append(path[:])
             return result
@@ -18,7 +18,7 @@ class Solution:
                 continue
 
             path.append(nums[i])
-            result = self.checkPermutation(nums,result,path)
+            result = self.findPermutations(nums,result,path)
             path.pop()
 
         return result
@@ -29,24 +29,23 @@ class Solution:
 
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
+        
+        return self.findPermutations(nums,[],0)
 
-        return self.checkPermutation(nums,0,[])
 
-    def checkPermutation(self,nums,start,result):
+    def findPermutations(self,nums,result,start):
 
         if start == len(nums):
             result.append(nums[:])
             return result
 
         for i in range(start,len(nums)):
-            
-            # Swap the current element with the start element
-            nums[i] , nums[start] = nums[start],nums[i]
 
-            result = self.checkPermutation(nums,start+1,result)
-
-             # Swap back to backtrack
-            nums[i] , nums[start] = nums[start],nums[i]
+            nums[i],nums[start] = nums[start],nums[i]
+            result = self.findPermutations(nums,result,start+1)
+            nums[i],nums[start] = nums[start],nums[i]
 
         return result
+
+
 
