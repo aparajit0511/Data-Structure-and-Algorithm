@@ -13,7 +13,7 @@ class Solution:
         for i in range(len(nums)-1):
             if abs(nums[i] - nums[i+1]) == 1:
                 count +=1
-            elif abs(nums[i] - nums[i+1]):
+            elif abs(nums[i] - nums[i+1]) > 1:
                 count = 1
             max_count = max(count,max_count)
                 
@@ -30,10 +30,14 @@ class Solution:
 
         for value in nums:
             if value - 1 not in nums:
+                # assuming value is in nums
                 y = value + 1
 
                 while y in nums:
+                    # checking if value + 1 or y is in nums
                     y += 1
+
+                # once the loop is over counting values y to x
 
                 max_count = max(max_count,y - value)
 

@@ -1,5 +1,5 @@
-# Time Complexity: 𝑂 ( 𝑛 ⋅ 4 𝑛 )
-# Space Complexity: 𝑂 ( 4 𝑛 )
+# Time Complexity: 𝑂 ( 𝑛 ⋅ 4 ^ 𝑛 )
+# Space Complexity: 𝑂 ( 4 ^ 𝑛 )
 
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
@@ -39,8 +39,8 @@ class Solution:
         return result
 
 
-# Time Complexity: 𝑂 ( 𝑛 ⋅ 4 𝑛 )
-# Space Complexity: 𝑂 ( 4 𝑛 )
+# Time Complexity: 𝑂 ( 𝑛 ⋅ 4 ^ 𝑛 )
+# Space Complexity: 𝑂 ( 4 ^ 𝑛 )
 
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
