@@ -1,48 +1,39 @@
 class Solution:
-    def permute(self, nums: List[int]) -> List[List[int]]:
+    def longestConsecutive(self, nums: List[int]) -> int:
+
+        if not nums:
+            return 0
         
+        nums.sort()
+        count = 1
+        max_count = 1
 
-        return self.backtrack(nums,[],[])
+        for i in range(len(nums)-1):
+            if abs(nums[i] - nums[i+1]) == 1:
+                count += 1
+            elif abs(nums[i] - nums[i+1]) > 1:
+                count = 1
 
-    def backtrack(self,nums,path,result):
+            max_count = max(max_count, count)
 
-        if len(path) == len(nums):
-            result.append(path[:])
-            return result
-
-        for i in range(len(nums)):
-
-            if nums[i] in path:
-                continue
-
-            path.append(nums[i])
-
-            result = self.backtrack(nums,path,result)
-            path.pop()
-
-        return result
-
+        return max_count
 
 
 
 class Solution:
-    def permute(self, nums: List[int]) -> List[List[int]]:
+    def longestConsecutive(self, nums: List[int]) -> int:
 
-        return self.backtrack(nums,[],0)
+        nums = set(nums)
+        max_count = 0
 
-    def backtrack(self,nums,result,start):
+        for x in nums:
 
-        if start == len(nums):
-            result.append(nums[:])
-            return result
+            if x-1 not in nums:
+                y = x
+
+                while y in nums:
+                    y = y + 1
+                    max_count = max(max_count, y-x)
 
 
-        for i in range(start,len(nums)):
-
-            nums[i] , nums[start] = nums[start] , nums[i]
-
-            result = self.backtrack(nums,result,start+1)
-
-            nums[i] , nums[start] = nums[start] , nums[i]
-
-        return result
+        return max_count
