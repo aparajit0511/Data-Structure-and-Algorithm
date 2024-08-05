@@ -1,39 +1,47 @@
 class Solution:
-    def longestConsecutive(self, nums: List[int]) -> int:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
 
-        if not nums:
-            return 0
-        
-        nums.sort()
-        count = 1
-        max_count = 1
+        hash_table = {}
 
-        for i in range(len(nums)-1):
-            if abs(nums[i] - nums[i+1]) == 1:
-                count += 1
-            elif abs(nums[i] - nums[i+1]) > 1:
-                count = 1
+        for i in range(len(nums)):
 
-            max_count = max(max_count, count)
+            if nums[i] not in hash_table:
+                hash_table[nums[i]] = 1
+            else:
+                hash_table[nums[i]] += 1
 
-        return max_count
+        hash_table = {key: value for key, value in sorted(hash_table.items(), key=lambda item: item[1],reverse=True)}
 
+        result = []
+
+        for key,value in hash_table.items():
+            if k == 0:
+                break
+            result.append(key)
+            k -= 1
+
+        return result
 
 
 class Solution:
-    def longestConsecutive(self, nums: List[int]) -> int:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        
+        from collections import Counter,defaultdict
 
-        nums = set(nums)
-        max_count = 0
+        count = Counter(count)
 
-        for x in nums:
+        hash_table = defaultdict(list)
 
-            if x-1 not in nums:
-                y = x
+        for key,value in count.items():
+            hash_table[value].append(key)
 
-                while y in nums:
-                    y = y + 1
-                    max_count = max(max_count, y-x)
+        result = []
 
+        for key,value in hash_table.items():
+            if k == 0:
+                break
 
-        return max_count
+            result.append(value)
+            k -= 1
+
+        return result

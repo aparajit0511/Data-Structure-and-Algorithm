@@ -1,3 +1,4 @@
+# Time Complexity: O(NLogN) and Space Complexity: O(N)
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         hash_table = {}
@@ -16,31 +17,30 @@ class Solution:
         return result[:k]
 
 
-
+# Time Complexity: O(N) and Space Complexity: O(N)
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        
+        from collections import Counter,defaultdict
 
-        from collections import Counter, defaultdict
+        count = Counter(nums)
 
-        count = Counter(nums) # taking count of every number
-
-        bucket = defaultdict(list)
+        hash_table = defaultdict(list)
 
         for key,value in count.items():
-            bucket[value].append(key)
-
-        # creating another hash to map the count with the number in increasing order
+            hash_table[value].append(key)
 
         result = []
+        print(hash_table)
 
-        # run loop in reverse to find k most frequent
+        for freq in range(len(nums),-1,-1):
 
-        for i in range(len(nums),-1,-1):
+            if freq in hash_table:
+                result.extend(hash_table[freq])
+                
+                if len(result) == k:
+                    break
 
-            result.extend(bucket[i])
-
-            if len(result) == k:
-                return result
 
         return result
 
