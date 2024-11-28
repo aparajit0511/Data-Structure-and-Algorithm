@@ -1,26 +1,58 @@
 class Solution:
-    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         
-        from collections import deque
-        queue = deque()
+        result = []
+        hash_table = {}
 
-        queue.append((beginWord,1))
-        wordList = set(wordList)
+        for i in range(len(nums)):
+            if nums[i] not in hash_table:
+                hash_table[nums[i]] = 1
+            else:
+                hash_table[nums[i]] += 1
 
-        while queue:
+        hash_table = {key:value for key,value in sorted(hash_table.items(), key=lambda item:item[1],reverse=True)}
 
-            word,length = queue.popleft()
+        for key,value in hash_table.items():
 
-            if word == endWord:
-                return length
+            if len(result) == k:
+                break
 
-            for w in range(len(word)):
-                for alphabet in "abcdefghijklmnopqrstuvwxyz":
+            result.append(key)
 
-                    new_word = word[:w] + alphabet + word[w+1:]
-                    # print(new_word)
-                    if new_word in wordList:
-                        queue.append((new_word,length+1))
-                        wordList.remove(new_word)
+        return result
 
-        return 0
+
+
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        
+        from collections import Counter,defaultdict
+
+        count = Counter(nums)
+
+        hash_table = defaultdict(list)
+        result = []
+
+        for key,value in count.items():
+            hash_table[value].append(key)
+
+        for freq in range(len(nums),-1,-1):
+            if freq in hash_table:
+                result.extend(hash_table[freq])
+
+                if len(result) == k:
+                    break
+
+        return result
+
+
+
+
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        
+        nums.sort(reverse=True)
+
+        return nums[k-1]
+
